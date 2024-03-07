@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:18.04
 RUN apt-get update -y
 RUN apt-get install -y python3 
 RUN apt-get install -y git 
@@ -30,7 +30,8 @@ RUN apt-get install -y libreadline-dev
 RUN apt-get install -y libsqlite3-dev 
 RUN apt-get install -y libncursesw5-dev 
 RUN apt-get install -y xz-utils 
-# RUN apt-get install -y tk-dev 
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y tzdata 
+RUN apt-get install -y tk-dev 
 RUN apt-get install -y libffi-dev 
 RUN apt-get install -y liblzma-dev 
 RUN apt-get install -y python3-openssl 
