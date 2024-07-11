@@ -44,3 +44,16 @@ RUN apt-get install -y rsync
 RUN apt-get install -y android-tools-fastboot 
 RUN apt-get install -y android-tools-adb
 
+# Create a user with the same UID and GID as the host user
+ARG USERNAME
+ARG UID
+ARG GID
+
+# Ensure the group and user creation handles existing groups
+RUN groupadd -g $GID $USERNAME || true && \
+    useradd -m -u $UID -g $GID -s /bin/bash $USERNAME && \
+    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to the new user
+USER $USERNAME
+
